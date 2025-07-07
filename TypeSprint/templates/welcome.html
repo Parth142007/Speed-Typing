@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'welcome.css')}}">
+</head>
+<body>
+<div class="main">
+	<h1 class="name">Hi, {{name}}</h1>
+	<h3 class="email">{{email}}</h3>
+
+	<div class="btn-container">
+		<a href="/typing-test" class="btn btn-primary">Start Typing Test</a>
+		<a href="/logout" class="btn btn-danger">Logout</a>
+	</div>
+
+	{% if latest_result %}
+	<div class="latest-result">
+		<h2>Your Latest Typing Result</h2>
+		<div class="stats-grid">
+			<div class="stat-card">
+				<h3>WPM</h3>
+				<p class="stat-value">{{ latest_result.wpm|round(2) }}</p>
+			</div>
+			<div class="stat-card">
+				<h3>Accuracy</h3>
+				<p class="stat-value">{{ latest_result.accuracy|round(2) }}%</p>
+			</div>
+			<div class="stat-card">
+				<h3>Time</h3>
+				<p class="stat-value">{{ latest_result.time_elapsed|round(2) }}s</p>
+			</div>
+			<div class="stat-card">
+				<h3>Words</h3>
+				<p class="stat-value">{{ latest_result.word_count }}</p>
+			</div>
+		</div>
+		<p style="text-align: center; margin-top: 10px; color: #666; font-size: 14px;">Test taken on: {{ latest_result.timestamp }}</p>
+	</div>
+	{% endif %}
+
+	{% if history and history|length > 0 %}
+	<div class="history-section">
+		<h2>Your Typing History</h2>
+		<table class="history-table">
+			<tr>
+				<th>Date/Time</th>
+				<th>WPM</th>
+				<th>Accuracy (%)</th>
+				<th>Time Elapsed (s)</th>
+				<th>Words Typed</th>
+			</tr>
+			{% for result in history|sort(attribute='timestamp', reverse=true) %}
+			<tr>
+				<td>{{ result.timestamp }}</td>
+				<td>{{ result.wpm|round(2) }}</td>
+				<td>{{ result.accuracy|round(2) }}</td>
+				<td>{{ result.time_elapsed|round(2) }}</td>
+				<td>{{ result.word_count }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	{% else %}
+	<div style="text-align: center; color: #666; font-style: italic; margin: 40px 0;">
+		<p>No typing history yet. Take your first test!</p>
+	</div>
+	{% endif %}
+</div>
+</body>
+</html> 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeSprint</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="static/css/typing_test.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>TypeSprint</h1>
+        <p>Test your typing speed and accuracy in real-time.</p>
+    </header>
+
+    <main>
+        <section id="typing-section">
+            <div id="paragraph-container">
+                <p id="paragraph">{{ paragraph }}</p>
+            </div>
+
+            <div id="stats">
+                <div class="stat">
+                    <span class="stat-label">Timer</span>
+                    <span id="timer" class="stat-value">{{ timer }}</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">WPM</span>
+                    <span id="wpm" class="stat-value">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Accuracy</span>
+                    <span id="accuracy" class="stat-value">0%</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Time Elapsed</span>
+                    <span id="elapsed" class="stat-value">0s</span>
+                </div>
+            </div>
+
+            <form id="typingForm" method="POST" action="/typing-result">
+                <textarea id="userInput" name="user_input" placeholder="Start typing here..." rows="5"></textarea>
+                <div id="controls">
+                    <button type="submit" id="submitButton">Submit</button>
+                    <button type="button" id="changeParagraphButton">New Paragraph</button>
+                    <a href="/welcome" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">Back to Welcome</a>
+                    <a href="/logout" style="background-color: #f44336; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-left: 10px;">Logout</a>
+                </div>
+            </form>
+
+            <!-- Modal Structure -->
+            <div id="resultsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Developed by ME</h3>
+                    <p>Email: parthnaukudkar35@gmail.com</p>
+                    <div id="modal-results">
+                        <h4>Your Results</h4>
+                        <div class="result-item">
+                            <span>Words per Minute:</span>
+                            <span id="modal-wpm">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Accuracy:</span>
+                            <span id="modal-accuracy">0%</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Time Elapsed:</span>
+                            <span id="modal-elapsed">0s</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Words Typed:</span>
+                            <span id="modal-word-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results"></div>
+        </section>
+    </main>
+
+    <script src="static/javascript/typing_test.js"></script>
+</body>
+</html>
